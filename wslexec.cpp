@@ -14,16 +14,13 @@ const string EXE_EXTNAME = ".exe";
 string IfWinPathThenToWSLPath(string s);
 string IfWSLPathThenToWinPath(string s);
 
-inline wstring StringToWString(const string& s);
-inline LPWSTR WStringToLPWSTR(const wstring& s) { return const_cast<LPWSTR>(s.c_str()); }
-
 int main(int argc, char** argv)
 {
 	SetConsoleCP(65001);
 	SetConsoleOutputCP(65001);
 
 	string cmd = argv[0];
-	int offset = cmd.find_last_of('\\') + 1;
+	size_t offset = cmd.find_last_of('\\') + 1;
 	cmd = cmd.substr(offset, cmd.size() - offset - EXE_EXTNAME.size());
 	
 	for(int i = 1; i < argc; i++)
@@ -34,7 +31,6 @@ int main(int argc, char** argv)
 	}
 	
 	cmd = "wsl -e " + cmd;
-	wstring wcmd = StringToWString(cmd);
 	
 	PROCESS_INFORMATION pi;
 	STARTUPINFO si;
@@ -124,13 +120,4 @@ string IfWSLPathThenToWinPath(string s)
 	s.insert(1, ":");
 	
 	return s;
-}
-
-inline wstring StringToWString(const string& s) {
-	wchar_t* buf = new wchar_t[BUFFER_SIZE];
-	size_t len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), -1, buf, BUFFER_SIZE);
-	buf[len] = 0;
-	wstring ws = buf; 
-	delete[] buf;
-	return ws;
 }
