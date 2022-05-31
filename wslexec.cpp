@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 }
 
 // If s is a Win path, then convert it to a WSL path
- string IfWinPathThenToWSLPath(string s)
+string IfWinPathThenToWSLPath(string s)
 {
 	// Process relative path
 	replace(s.begin(), s.end(), '\\', '/');
@@ -106,7 +106,7 @@ int main(int argc, char** argv)
 	return s;
 }
 
- // If s is a WSL path, then convert it to a Win path
+// If s is a WSL path, then convert it to a Win path
 string IfWSLPathThenToWinPath(string s)
 {
 	// Process relative path
