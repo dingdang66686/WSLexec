@@ -6,7 +6,7 @@ cmake_minimum_required (VERSION 3.8)
 project ("wslexec")
 
 # 将源代码添加到此项目的可执行文件。
-add_executable (wslexec wslexec)
+add_executable (wslexec "wslexec.cpp" "Config.cpp" "PathParser.cpp" "Process.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET wslexec PROPERTY CXX_STANDARD 20)
